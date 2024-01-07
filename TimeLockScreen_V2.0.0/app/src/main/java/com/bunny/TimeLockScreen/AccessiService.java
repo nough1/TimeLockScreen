@@ -3,6 +3,8 @@ package com.bunny.TimeLockScreen;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -23,6 +25,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import java.util.Calendar;
+
 /**
  * Project:  定时锁屏 V2.0
  * Comments: AccessibilityService后台服务类
@@ -39,7 +43,18 @@ public class AccessiService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        StartThreadGesture();
+        checkLockScreen(event);
+    }
+
+    private void checkLockScreen(AccessibilityEvent event){
+
+        Log.v("checkLockScreen", "checkLockScreen:"+event.toString());
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        if(hour>=6 && hour<=12){
+            lockScreen();
+        }
+
     }
     //开启一个子线程
     private void StartThreadGesture() {

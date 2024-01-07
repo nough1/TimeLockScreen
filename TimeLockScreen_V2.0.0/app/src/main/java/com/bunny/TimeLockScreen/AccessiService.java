@@ -51,7 +51,7 @@ public class AccessiService extends AccessibilityService {
         Log.v("checkLockScreen", "checkLockScreen:"+event.toString());
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        if(hour>=6 && hour<=12){
+        if(hour>=4 && hour<=8){
             lockScreen();
         }
 
